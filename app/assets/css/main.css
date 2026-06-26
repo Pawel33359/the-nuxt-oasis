@@ -1,0 +1,89 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* background */
+  --bg: #0b1210;
+  --bg-soft: #111b17;
+
+  /* text */
+  --text: #e6f4ea;
+  --text-muted: #9fb3a8;
+
+  /* primary green (Vue/Nuxt vibe) */
+  --primary: #42b883;
+  --primary-dark: #2f855a;
+  --primary-light: #64d6a0;
+
+  /* accents */
+  --accent: #38e6a5;
+  --border: #1f2a25;
+
+  /* UI states */
+  --success: #42b883;
+  --warning: #f6c177;
+  --error: #ef4444;
+
+  /* shadows */
+  --shadow: rgba(0, 0, 0, 0.4);
+
+  /* font sizes */
+  --text-xs: 1.2rem; /* 12px */
+  --text-sm: 1.4rem; /* 14px */
+  --text-base: 1.6rem; /* 16px */
+  --text-lg: 1.8rem; /* 18px */
+  --text-xl: 2rem; /* 20px */
+  --text-2xl: 2.4rem; /* 24px */
+  --text-3xl: 3rem; /* 30px */
+
+  /* spacing */
+  --space-1: 0.4rem; /* 4px */
+  --space-2: 0.8rem; /* 8px */
+  --space-3: 1.2rem; /* 12px */
+  --space-4: 1.6rem; /* 16px */
+  --space-5: 2rem; /* 16px */
+  --space-6: 2.4rem; /* 24px */
+  --space-8: 3.2rem; /* 32px */
+
+  /* radius */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.8rem;
+  --radius-lg: 1.2rem;
+
+  --page-mw: 140rem;
+}
+
+html {
+  font-size: 62.5%; /*1rem === 10px*/
+}
+body {
+  margin: 0;
+  font-family: "Josefin Sans", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--primary-light);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
