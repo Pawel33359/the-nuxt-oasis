@@ -1,9 +1,12 @@
+<script setup lang="ts"></script>
 <template>
-  <Header />
-  <div class="container">
-    <main class="content">
-      <slot />
-    </main>
+  <div class="layout">
+    <Header />
+    <div class="container">
+      <main class="content">
+        <slot />
+      </main>
+    </div>
   </div>
 </template>
 <style>

@@ -31,4 +31,7 @@
   font-size: var(--text-xl);
   font-weight: 600;
 }
+.header.--main .logo__text {
+  filter: drop-shadow(0 0 5px var(--bg));
+}
 </style>

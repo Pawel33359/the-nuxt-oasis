@@ -40,6 +40,7 @@
   --text-xl: 2rem; /* 20px */
   --text-2xl: 2.4rem; /* 24px */
   --text-3xl: 3rem; /* 30px */
+  --text-10xl: 10rem; /* 30px */
 
   /* spacing */
   --space-1: 0.4rem; /* 4px */
@@ -49,12 +50,25 @@
   --space-5: 2rem; /* 16px */
   --space-6: 2.4rem; /* 24px */
   --space-8: 3.2rem; /* 32px */
+  --space-10: 4rem; /* 40px */
+  --space-16: 6.4rem; /* 64px */
 
   /* radius */
   --radius-sm: 0.4rem;
   --radius-md: 0.8rem;
   --radius-lg: 1.2rem;
 
+  /* transition */
+  --transition-sm: 0.1s;
+  --transition-md: 0.25s;
+  --transition-lg: 0.5s;
+  --transition-xl: 1s;
+
+  --animation-sm: 0.5s;
+  --animation-md: 1.5s;
+  --animation-lg: 3s;
+
+  /* page */
   --page-mw: 140rem;
 }
 
@@ -63,7 +77,7 @@ html {
 }
 body {
   margin: 0;
-  font-family: "Josefin Sans", system-ui, sans-serif;
+  font-family: "Josefin Sans", "Inter", system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -75,7 +89,9 @@ body {
 }
 
 a {
-  color: var(--primary);
+  color: var(--text);
+  text-decoration: none;
+  transition: color var(--transition-md);
 }
 
 a:hover {
@@ -86,4 +102,35 @@ img {
   max-width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+.btn {
+  background: var(--primary);
+  color: var(--text);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-base);
+  text-decoration: none;
+  transition: all var(--transition-md);
+}
+.btn:hover {
+  background: var(--primary-dark);
+  color: var(--text);
+}
+
+.btn.--small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-base);
+}
+.btn.--medium {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-lg);
+}
+.btn.--large {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-xl);
+}
+.btn.--xl {
+  padding: var(--space-5) var(--space-8);
+  font-size: var(--text-2xl);
 }
