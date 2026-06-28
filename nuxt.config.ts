@@ -4,6 +4,12 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: ["@nuxt/image", "@nuxtjs/google-fonts"],
+  runtimeConfig: {
+    supabaseUrl:
+      process.env.SUPABASE_URL || process.env.NUXT_SUPABASE_URL || "",
+    supabaseKey:
+      process.env.SUPABASE_KEY || process.env.NUXT_SUPABASE_KEY || "",
+  },
   app: {
     head: {
       title: "The Nuxt Oasis",

@@ -12,9 +12,10 @@
     sizes="sm:100vw md:100vw lg:100vw"
     loading="eager"
     fit="cover"
+    placeholder
   />
   <div class="home">
-    <h1>Welcome to paradise.</h1>
+    <h1 class="home__title">Welcome to paradise.</h1>
     <NuxtLink class="btn --xl home__btn" to="/cabins">
       <span>Explore luxury cabins</span>
     </NuxtLink>
@@ -30,7 +31,8 @@
   gap: var(--space-5);
   padding-top: var(--space-16);
 }
-h1 {
+.home__title {
+  color: var(--text);
   font-size: var(--text-10xl);
   filter: drop-shadow(0 0 5px var(--bg));
 }
@@ -53,7 +55,7 @@ h1 {
 .home__btn:hover span {
   scale: 1.05;
 }
-@keyframes hero-show {
+@keyframes img-start-zoom {
   from {
     scale: 1.3;
     opacity: 0.8;
