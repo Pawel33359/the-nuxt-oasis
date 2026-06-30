@@ -1,17 +1,15 @@
 <script setup lang="ts">
-const props = defineProps({
-  classes: String,
-  onClick: Function,
-});
+defineProps<{
+  classes?: string;
+}>();
+
+const emit = defineEmits<{
+  click: [];
+}>();
 </script>
 
 <template>
-  <button @click="onClick" :class="`btn ${classes}`">
+  <button :class="`btn ${classes ?? ''}`" @click="emit('click')">
     <slot />
   </button>
 </template>
-
-<style scoped>
-.btn {
-}
-</style>

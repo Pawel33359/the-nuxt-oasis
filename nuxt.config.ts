@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxt/image", "@nuxtjs/google-fonts"],
+  modules: ["@nuxt/image", "@nuxtjs/google-fonts", "@nuxt/icon"],
   runtimeConfig: {
     supabaseUrl:
       process.env.SUPABASE_URL || process.env.NUXT_SUPABASE_URL || "",

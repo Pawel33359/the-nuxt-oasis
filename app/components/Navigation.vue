@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const route = useRoute();
-console.log(route);
 
 const navigationRoutes = [
   {
@@ -23,7 +22,7 @@ const navigationRoutes = [
     <ul class="header__nav_list">
       <li v-for="navRoute in navigationRoutes" :key="navRoute.link">
         <NuxtLink
-          :class="`header__nav_link ${
+          :class="`header__nav_link --link-underline ${
             route.path === navRoute.link ? '--active' : ''
           }`"
           :to="navRoute.link"
@@ -47,31 +46,9 @@ const navigationRoutes = [
 }
 .header__nav_link {
   text-decoration: none;
+  display: block;
   font-size: var(--text-xl);
-  display: block;
   padding: var(--space-2) var(--space-5);
-}
-.header__nav_link span {
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-  padding: var(--space-1) 0;
-}
-.header__nav_link span::after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  background: var(--primary-light);
-  bottom: 0;
-  left: 0;
-  transform: translateX(100%);
-  transition: transform var(--transition-md);
-}
-
-.header__nav_link:hover span::after {
-  transform: translateX(0);
 }
 
 .header__nav_link.--active {

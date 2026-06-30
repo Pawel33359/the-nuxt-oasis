@@ -7,16 +7,16 @@ useSeoMeta({
   title: "About",
 });
 
-const { data } = await useFetch('/api/about');
+const { data } = await useFetch("/api/about");
 const cabinsCount = computed(() => data.value?.cabinsCount ?? 0);
 </script>
 
 <template>
   <div class="about">
     <h1>Welcome to The Wild Oasis</h1>
-    <div class="about__item">
-      <div class="about__item_block">
-        <h2 class="about__item_title">Luxurious cabins are waiting for you!</h2>
+    <div class="about-item">
+      <div class="about-item__block">
+        <h2 class="about-item__title">Luxurious cabins are waiting for you!</h2>
         <p>
           Where nature&apos;s beauty and comfortable living blend seamlessly.
           Hidden away in the heart of the Italian Dolomites, this is your
@@ -39,7 +39,7 @@ const cabinsCount = computed(() => data.value?.cabinsCount ?? 0);
 
       <NuxtImg
         src="/about-1.jpg"
-        class="about__item_img"
+        class="about-item__img"
         alt="Family sitting around a fire pit in front of cabin"
         format="webp"
         width="2000"
@@ -52,9 +52,9 @@ const cabinsCount = computed(() => data.value?.cabinsCount ?? 0);
       />
     </div>
 
-    <div class="about__item">
-      <div class="about__item_block">
-        <h2 class="about__item_title">Managed by our family since 1962</h2>
+    <div class="about-item">
+      <div class="about-item__block">
+        <h2 class="about-item__title">Managed by our family since 1962</h2>
         <p>
           Since 1962, The Wild Oasis has been a cherished family-run retreat.
           Started by our grandparents, this haven has been nurtured with love
@@ -79,7 +79,7 @@ const cabinsCount = computed(() => data.value?.cabinsCount ?? 0);
 
       <NuxtImg
         src="about-2.jpg"
-        class="about__item_img"
+        class="about-item__img"
         alt="Family that manages The Wild Oasis"
         format="webp"
         width="2000"
@@ -95,63 +95,51 @@ const cabinsCount = computed(() => data.value?.cabinsCount ?? 0);
 </template>
 
 <style scoped>
-.about__item {
-  --animation-delay: 0s;
+.about-item {
   display: grid;
   grid-template-columns: 1fr minmax(auto, 420px);
   align-items: center;
   gap: var(--space-10);
 }
 
-.about__item_title {
+.about-item__title {
   padding-bottom: var(--space-4);
 }
-.about__item_block {
+.about-item__block {
   font-size: var(--text-lg);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
-.about__item_img {
+.about-item__img {
   grid-column: 2 / 3;
   border-radius: var(--radius-lg);
 }
 
-.about__item:nth-child(2n) {
+.about-item {
+  --animation-delay: 0s;
+  animation: slide-to var(--animation-md) forwards;
+}
+.about-item:nth-child(2n) {
   /*for animation */
   opacity: 0.2;
   transform: translateX(50%);
-  animation: about-slide-left var(--animation-md) forwards;
 }
-.about__item:nth-child(2n + 1) {
+.about-item:nth-child(2n + 1) {
   grid-template-columns: minmax(auto, 420px) 1fr;
   /*for animation */
   opacity: 0.2;
   transform: translateX(-50%);
-  animation: about-slide-right var(--animation-md) forwards;
 }
-.about__item:nth-child(2n + 1) .about__item_img {
+.about-item:nth-child(2n + 1) .about-item__img {
   grid-column: 1 / 2;
   grid-row: 1/2;
 }
 
 @supports (width: calc(sibling-index() * 1px)) {
-  .about__item {
+  .about-item {
     --animation-delay: calc((sibling-index() - 2) * 100ms);
     animation-delay: var(--animation-delay) !important;
-  }
-}
-
-@keyframes about-slide-left {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes about-slide-right {
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 </style>

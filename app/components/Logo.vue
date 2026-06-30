@@ -7,8 +7,7 @@
       width="60"
       height="60"
       src="/logo.png"
-      alt="The
-    Nuxt Oasis logo"
+      alt="The Nuxt Oasis logo"
       :modifiers="{ tint: '#2f855a' }"
       quality="100"
       loading="eager"
