@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import type { Cabin } from "~/types/cabin";
+import type { Cabin } from "../../shared/types/cabin";
 
 const props = defineProps<{ cabin: Cabin; index: number }>();
 
 const index = props.index;
 const { id, name, maxCapacity, regularPrice, discount, image } = props.cabin;
-
-console.log(id, name, maxCapacity, regularPrice, discount, image);
 </script>
 
 <template>

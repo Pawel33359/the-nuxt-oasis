@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FilterGroup } from "../types/filters";
+import type { FilterGroup } from "../../shared/types/filters";
 
 const { filters } = defineProps<{
   filters: Record<string, FilterGroup>;

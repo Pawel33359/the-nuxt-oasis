@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Cabin } from "~/types/cabin";
+import type { Cabin } from "../../shared/types/cabin";
 
 const { cabin } = defineProps<{
   cabin: Cabin;

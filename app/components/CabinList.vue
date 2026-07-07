@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Cabin } from "~/types/cabin";
+import type { Cabin } from "../../shared/types/cabin";
 
 const route = useRoute();
 const { data: cabins, pending } = await useFetch<Cabin[]>("/api/cabins");
@@ -26,9 +26,7 @@ const filteredCabins = computed(() => {
     return selectedValues.some((selected) => {
       const range = capacityMap[selected as keyof typeof capacityMap];
       if (!range) return false;
-      return (
-        cabin.maxCapacity >= range.min && cabin.maxCapacity <= range.max
-      );
+      return cabin.maxCapacity >= range.min && cabin.maxCapacity <= range.max;
     });
   });
 });

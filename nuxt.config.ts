@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css", "v-calendar/dist/es/style.css"],
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: ["@nuxt/image", "@nuxtjs/google-fonts", "@nuxt/icon"],
