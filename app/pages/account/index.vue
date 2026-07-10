@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { auth } from "~/middleware/auth";
 import { refreshSession, useSession } from "~/composables/useSession";
 
 definePageMeta({
   layout: "default",
+  middleware: auth,
 });
 
 useSeoMeta({

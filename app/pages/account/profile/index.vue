@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { auth } from "~/middleware/auth";
+
 definePageMeta({
   layout: "default",
+  middleware: auth,
 });
 
 useSeoMeta({
-  title: "index",
+  title: "Profile",
 });
 </script>
 
