@@ -1,5 +1,5 @@
 import { createError } from "h3";
-import { auth, signIn, signOut } from "./auth";
+import { auth } from "./auth";
 import { supabase } from "./supabase";
 import {
   getBooking as getBookingById,
@@ -8,7 +8,7 @@ import {
 } from "./data-service";
 
 export async function signInAction(event) {
-  return signIn("google", { event, redirectTo: "/account" });
+  return { redirectTo: "/api/auth/signin/google?callbackUrl=/account" };
 }
 
 export async function updateGuestAction(formData, event) {
@@ -71,7 +71,6 @@ export async function deleteBookingAction(bookingId, event) {
 }
 
 export async function signOutAction(event) {
-  await signOut({ event });
   return { success: true, redirectTo: "/" };
 }
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const router = useRouter();
+const { signIn } = useAuth();
 const isSubmitting = ref(false);
 
 async function handleSignIn() {
@@ -12,10 +12,7 @@ async function handleSignIn() {
   isSubmitting.value = true;
 
   try {
-    await $fetch("/api/auth/signin", {
-      method: "POST",
-    });
-    await router.push("/account");
+    await signIn("google", { callbackUrl: "/account" });
   } finally {
     isSubmitting.value = false;
   }
@@ -29,6 +26,7 @@ async function handleSignIn() {
     @click="handleSignIn"
     :disabled="isSubmitting"
   >
+    <img class="google-logo" src="/google.svg" alt="" />
     <span v-if="!isSubmitting">Continue with Google</span>
     <span v-else>Signing in…</span>
   </button>
@@ -39,18 +37,28 @@ async function handleSignIn() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1.5rem;
-  border: 1px solid var(--primary-300);
-  color: var(--text);
-  background: transparent;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #dadce0;
+  border-radius: 0.25rem;
+  color: #3c4043;
+  background: #fff;
+  font: inherit;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.google-logo {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 .sign-in-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 .sign-in-button:hover:not(:disabled) {
-  background-color: var(--primary-100);
+  background-color: #f8faff;
+  box-shadow: 0 1px 3px rgb(60 64 67 / 30%);
 }
 </style>

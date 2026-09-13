@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const router = useRouter();
+const { signOut } = useAuth();
 const isSigningOut = ref(false);
 
 async function handleSignOut() {
@@ -12,10 +12,7 @@ async function handleSignOut() {
   isSigningOut.value = true;
 
   try {
-    await $fetch("/api/auth/signout", {
-      method: "POST",
-    });
-    await router.push("/");
+    await signOut({ callbackUrl: "/" });
   } finally {
     isSigningOut.value = false;
   }

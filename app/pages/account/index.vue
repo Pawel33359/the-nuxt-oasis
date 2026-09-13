@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { auth } from "~/middleware/auth";
-import { refreshSession, useSession } from "~/composables/useSession";
 
 definePageMeta({
   layout: "default",
@@ -11,24 +10,20 @@ useSeoMeta({
   title: "Account",
 });
 
-const session = useSession();
-
-await refreshSession();
+const { data: session } = useAuth();
 </script>
 
 <template>
   <main class="page-shell">
     <section class="account-welcome">
       <h1>Guest area</h1>
-      <p v-if="session?.user">
-        Welcome back, {{ session.user.name }}.
-      </p>
-      <p v-else>
-        Loading your session…
-      </p>
+      <p v-if="session?.user">Welcome back, {{ session.user.name }}.</p>
+      <p v-else>Loading your session…</p>
       <div class="account-actions">
         <NuxtLink class="button" to="/account/profile">Profile</NuxtLink>
-        <NuxtLink class="button" to="/account/reservations">Reservations</NuxtLink>
+        <NuxtLink class="button" to="/account/reservations"
+          >Reservations</NuxtLink
+        >
       </div>
     </section>
   </main>
