@@ -43,7 +43,7 @@
   z-index: -1;
   width: 100vw;
   height: 100vh;
-  animation: hero-show forwards var(--animation-lg);
+  animation: img-start-zoom forwards var(--animation-lg);
 }
 .home__btn {
   overflow: hidden;

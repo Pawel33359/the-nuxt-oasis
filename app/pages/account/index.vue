@@ -20,10 +20,9 @@ const { data: session } = useAuth();
       <p v-if="session?.user">Welcome back, {{ session.user.name }}.</p>
       <p v-else>Loading your session…</p>
       <div class="account-actions">
-        <NuxtLink class="button" to="/account/profile">Profile</NuxtLink>
-        <NuxtLink class="button" to="/account/reservations"
-          >Reservations</NuxtLink
-        >
+        <NuxtLink class="btn" to="/account/profile">Profile</NuxtLink>
+        <NuxtLink class="btn" to="/account/reservations">Reservations</NuxtLink>
+        <SignOutButton />
       </div>
     </section>
   </main>
@@ -48,13 +47,5 @@ const { data: session } = useAuth();
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-}
-.button {
-  display: inline-flex;
-  padding: 0.9rem 1.2rem;
-  background: var(--primary);
-  color: white;
-  text-decoration: none;
-  border-radius: 0.75rem;
 }
 </style>

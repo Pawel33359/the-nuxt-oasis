@@ -1,36 +1,49 @@
 <script setup lang="ts">
 import { DatePicker as VCalendarDatePicker } from "v-calendar";
-// @ts-ignore
-type DatePickerDate = Date | string | number;
+
+interface BookingSettings {
+  minBookingLength: number;
+  maxBookingLength: number;
+}
 
 interface DatePickerRangeObject {
   start: Date;
   end: Date;
 }
+
 defineOptions({
   inheritAttrs: false,
 });
 
-const props = defineProps({
-  modelValue: {
-    type: [Date, Object] as PropType<
-      DatePickerDate | DatePickerRangeObject | null
-    >,
-    default: null,
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    modelValue?: DatePickerRangeObject | null;
+    settings?: BookingSettings | null;
+    bookedDates?: string[];
+  }>(),
+  {
+    modelValue: null,
+    settings: null,
+    bookedDates: () => [],
+  }
+);
 
-const emit = defineEmits(["update:model-value", "close"]);
+const emit = defineEmits<{
+  "update:model-value": [value: DatePickerRangeObject | null];
+  close: [];
+}>();
+
+const selectedRange = ref<DatePickerRangeObject | null>(props.modelValue);
 
 const date = computed({
-  get: () => props.modelValue,
+  get: () => props.modelValue ?? selectedRange.value,
   set: (value) => {
+    selectedRange.value = value;
     emit("update:model-value", value);
-    emit("close");
   },
 });
 
-const attrs = {
+const calendarAttrs = {
   transparent: true,
   borderless: true,
   color: "primary",
@@ -39,6 +52,21 @@ const attrs = {
   "first-day-of-week": 2,
 };
 
+const disabledDates = computed(() =>
+  props.bookedDates.map((date) => {
+    const [year, month, day] = date.slice(0, 10).split("-").map(Number);
+    return new Date(year, month - 1, day);
+  })
+);
+
+const minDays = computed(() =>
+  props.settings ? props.settings.minBookingLength + 1 : undefined
+);
+
+const maxDays = computed(() =>
+  props.settings ? props.settings.maxBookingLength + 1 : undefined
+);
+
 function onDayClick(_: any, event: MouseEvent): void {
   const target = event.target as HTMLElement;
   target.blur();
@@ -46,20 +74,22 @@ function onDayClick(_: any, event: MouseEvent): void {
 </script>
 
 <template>
-  <VCalendarDatePicker
-    v-if="date && (date as DatePickerRangeObject)?.start && (date as DatePickerRangeObject)?.end"
-    v-model.range="date"
-    :is-range="true"
-    :columns="2"
-    v-bind="{ ...attrs, ...$attrs }"
-    @dayclick="onDayClick"
-  />
-  <VCalendarDatePicker
-    v-else
-    v-model="date"
-    v-bind="{ ...attrs, ...$attrs }"
-    @dayclick="onDayClick"
-  />
+  <div class="date-picker">
+    <VCalendarDatePicker
+      v-model.range="date"
+      :min-date="new Date()"
+      :max-date="new Date(new Date().setFullYear(new Date().getFullYear() + 1))"
+      :min-days="minDays"
+      :max-days="maxDays"
+      :disabled-dates="disabledDates"
+      :columns="2"
+      v-bind="{ ...calendarAttrs, ...$attrs }"
+      @dayclick="onDayClick"
+      style="width: 100%; height: 100%"
+    />
+
+    <div class="date-picker__pricing">0</div>
+  </div>
 </template>
 
 <style>
@@ -75,8 +105,19 @@ function onDayClick(_: any, event: MouseEvent): void {
   --vc-gray-800: #1e293b;
   --vc-gray-900: #0f172a;
 }
-.vc-pane-container {
+.date-picker {
   background-color: var(--vc-gray-50);
+  color: var(--vc-gray-900);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.date-picker__pricing {
+  background-color: var(--primary-dark);
+  color: var(--text);
+  padding: var(--space-2);
+  text-align: end;
+  font-size: var(--text-4xl);
 }
 .vc-primary {
   --vc-accent-50: #ecfdf5;

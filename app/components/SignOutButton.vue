@@ -21,7 +21,7 @@ async function handleSignOut() {
 
 <template>
   <button
-    class="sign-out-button"
+    class="btn"
     type="button"
     @click="handleSignOut"
     :disabled="isSigningOut"
@@ -32,7 +32,7 @@ async function handleSignOut() {
 </template>
 
 <style scoped>
-.sign-out-button {
+/* .sign-out-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -49,5 +49,5 @@ async function handleSignOut() {
 }
 .sign-out-button:hover:not(:disabled) {
   background-color: var(--primary-100);
-}
+} */
 </style>

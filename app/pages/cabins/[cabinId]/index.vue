@@ -24,7 +24,13 @@ useSeoMeta({
     <Cabin :cabin="cabin" />
     <div class="cabin__reserve">
       <h2>Reserve {{ cabin.name }} today. Pay on arrival.</h2>
-      <Reservation :cabin="cabin" />
+      <Suspense>
+        <Reservation :cabin="cabin" />
+
+        <template #fallback>
+          <Spinner />
+        </template>
+      </Suspense>
     </div>
   </div>
 </template>

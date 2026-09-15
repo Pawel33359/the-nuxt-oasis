@@ -15,6 +15,8 @@ const navigationRoutes = [
     text: "Guest area",
   },
 ];
+
+const { data: session } = useAuth();
 </script>
 
 <template>
@@ -27,6 +29,12 @@ const navigationRoutes = [
           }`"
           :to="navRoute.link"
         >
+          <div
+            v-if="session?.user?.image && navRoute.link === '/account'"
+            class="header__avatar"
+          >
+            <img :src="session.user.image" alt="User avatar" />
+          </div>
           <span>{{ navRoute.text }}</span>
         </NuxtLink>
       </li>
@@ -46,12 +54,23 @@ const navigationRoutes = [
 }
 .header__nav_link {
   text-decoration: none;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   font-size: var(--text-xl);
   padding: var(--space-2) var(--space-5);
 }
-
+.header__avatar {
+  display: flex;
+}
 .header__nav_link.--active {
   color: var(--primary);
+}
+.header__avatar img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 </style>

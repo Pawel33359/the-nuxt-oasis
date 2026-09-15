@@ -20,6 +20,11 @@
   --primary-dark: #2f855a;
   --primary-light: #64d6a0;
 
+  /* secondary coral for warm highlights and active accents */
+  --secondary: #f28c7a;
+  --secondary-dark: #c96a5b;
+  --secondary-light: #ffb0a3;
+
   /* accents */
   --accent: #38e6a5;
   --border: #1f2a25;
@@ -98,6 +103,15 @@ body {
   overflow-x: clip;
 }
 
+button,
+select,
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 a {
   color: var(--text);
   text-decoration: none;
@@ -113,7 +127,12 @@ img {
   height: auto;
   object-fit: cover;
 }
-
+button {
+  font-family: "Josefin Sans", "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 .btn {
   background: var(--primary);
   color: var(--text);
