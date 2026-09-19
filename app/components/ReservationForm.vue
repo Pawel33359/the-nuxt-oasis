@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import type { Cabin } from "../../shared/types/cabin";
-import type { User } from "../../shared/types/user";
+import type { DatePickerRangeObject } from "../../shared/types/datePickerRange";
 
 const { cabin, user } = defineProps<{
   cabin: Cabin;
-  user: User | null;
+  user: {
+    name?: string | null;
+    image?: string | null;
+  } | null;
+  selectedRange: DatePickerRangeObject | null;
 }>();
 
 console.log("cabin", cabin);

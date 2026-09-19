@@ -10,10 +10,12 @@
   /* background */
   --bg: #0b1210;
   --bg-soft: #111b17;
+  --bg-light: #f2f2f2;
 
   /* text */
   --text: #e6f4ea;
   --text-muted: #9fb3a8;
+  --text-dark: #0b1210;
 
   /* primary green (Vue/Nuxt vibe) */
   --primary: #42b883;
@@ -143,8 +145,19 @@ button {
   transition: all var(--transition-md);
   display: inline-block;
 }
+
+.btn.--outline {
+  background: transparent;
+  color: var(--primary-light);
+  border: 1px solid var(--primary-light);
+}
+
 .btn:hover {
   background: var(--primary-dark);
+  color: var(--text);
+}
+.btn.--outline:hover {
+  background: var(--primary);
   color: var(--text);
 }
 

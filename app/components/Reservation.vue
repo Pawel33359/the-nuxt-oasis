@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import DatePicker from "./DatePicker.vue";
 import type { Cabin } from "../../shared/types/cabin";
+import type { DatePickerRangeObject } from "../../shared/types/datePickerRange";
+
+const selectedRange = ref<DatePickerRangeObject | null>(null);
 
 const { cabin } = defineProps<{
   cabin: Cabin;
@@ -25,13 +27,26 @@ console.log("reservationData", reservationData.value);
 
 <template>
   <div class="reservation">
-    <DatePicker
-      :settings="reservationData?.settings"
-      :bookedDates="reservationData?.bookedDates"
-      :cabin="cabin"
-    />
+    <div class="reservation__date">
+      <DatePicker
+        v-model="selectedRange"
+        :settings="reservationData?.settings"
+        :cabin="cabin"
+        :booked-dates="reservationData?.bookedDates"
+      />
+      <ReservationPrice
+        :cabin="cabin"
+        :selected-range="selectedRange"
+        :settings="reservationData?.settings ?? null"
+        @clear="selectedRange = null"
+      />
+    </div>
     <div v-if="session?.user">
-      <ReservationForm :cabin="cabin" :user="session?.user" />
+      <ReservationForm
+        :cabin="cabin"
+        :user="session?.user ?? null"
+        :selected-range="selectedRange"
+      />
     </div>
     <div v-else>
       <LoginMessage />
@@ -45,5 +60,13 @@ console.log("reservationData", reservationData.value);
   grid-template-columns: 1fr 1fr;
   border: 1px solid var(--border);
   background: var(--bg-soft);
+}
+
+.reservation__date {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 </style>
