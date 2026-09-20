@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import type { Cabin } from "../../shared/types/cabin";
-import type { DatePickerRangeObject } from "../../shared/types/datePickerRange";
-
-const selectedRange = ref<DatePickerRangeObject | null>(null);
 
 const { cabin } = defineProps<{
   cabin: Cabin;
@@ -10,42 +7,38 @@ const { cabin } = defineProps<{
 
 const { data: session } = useAuth();
 
-const { data: reservationData } = await useFetch<{
-  settings: {
-    id: number;
-    created_at: string;
-    minBookingLength: number;
-    maxBookingLength: number;
-    maxGuestsPerBooking: number;
-    breakfastPrice: number;
-  };
-  bookedDates: string[];
-}>(() => `/api/cabins/${cabin.id}/reservation`);
-
-console.log("reservationData", reservationData.value);
+const { data: reservationData, refresh: refreshReservationData } =
+  await useFetch<{
+    settings: {
+      id: number;
+      created_at: string;
+      minBookingLength: number;
+      maxBookingLength: number;
+      maxGuestsPerBooking: number;
+      breakfastPrice: number;
+    };
+    bookedDates: string[];
+  }>(() => `/api/cabins/${cabin.id}/reservation`);
 </script>
 
 <template>
   <div class="reservation">
     <div class="reservation__date">
       <DatePicker
-        v-model="selectedRange"
         :settings="reservationData?.settings"
         :cabin="cabin"
         :booked-dates="reservationData?.bookedDates"
       />
       <ReservationPrice
         :cabin="cabin"
-        :selected-range="selectedRange"
         :settings="reservationData?.settings ?? null"
-        @clear="selectedRange = null"
       />
     </div>
     <div v-if="session?.user">
       <ReservationForm
         :cabin="cabin"
         :user="session?.user ?? null"
-        :selected-range="selectedRange"
+        @success="refreshReservationData"
       />
     </div>
     <div v-else>

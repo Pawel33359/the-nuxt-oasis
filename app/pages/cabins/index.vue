@@ -48,6 +48,7 @@ const filters: Record<string, FilterGroup> = {
     </p>
     <Filters :filters="filters" />
     <CabinList />
+    <ReservationReminder />
   </div>
 </template>
 

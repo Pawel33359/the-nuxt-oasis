@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const { cabin, selectedRange, settings } = defineProps<{
+import type { Cabin } from "../../shared/types/cabin";
+import { useReservation } from "../composables/useReservation";
+
+const { cabin, settings } = defineProps<{
   cabin: Cabin;
-  selectedRange: DatePickerRangeObject | null;
   settings: {
     id: number;
     created_at: string;
@@ -12,16 +14,14 @@ const { cabin, selectedRange, settings } = defineProps<{
   } | null;
 }>();
 
-const emit = defineEmits<{
-  clear: [];
-}>();
+const { selectedRange, resetRange } = useReservation();
 
 const calculatedDays = computed(() => {
-  if (!selectedRange) {
+  if (!selectedRange.value) {
     return 0;
   }
 
-  const { start, end } = selectedRange;
+  const { start, end } = selectedRange.value;
   const diffTime = Math.abs(end.getTime() - start.getTime());
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -49,7 +49,7 @@ console.log(cabin);
       v-if="calculatedDays > 0"
       type="button"
       class="btn --outline --clear-btn"
-      @click="emit('clear')"
+      @click="resetRange"
     >
       Clear
     </button>

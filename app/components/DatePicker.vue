@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DatePicker as VCalendarDatePicker } from "v-calendar";
-import type { DatePickerRangeObject } from "../../shared/types/datePickerRange";
+import { useReservation } from "../composables/useReservation";
 
 interface BookingSettings {
   minBookingLength: number;
@@ -13,26 +13,21 @@ defineOptions({
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: DatePickerRangeObject | null;
     settings?: BookingSettings | null;
     bookedDates?: string[];
   }>(),
   {
-    modelValue: null,
     settings: null,
     bookedDates: () => [],
   }
 );
 
-const emit = defineEmits<{
-  "update:model-value": [value: DatePickerRangeObject | null];
-  close: [];
-}>();
+const { selectedRange, setRange } = useReservation();
 
 const date = computed({
-  get: () => props.modelValue,
+  get: () => selectedRange.value,
   set: (value) => {
-    emit("update:model-value", value);
+    setRange(value);
   },
 });
 
