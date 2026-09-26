@@ -4,6 +4,7 @@
     <Header />
     <div class="container">
       <main class="content">
+        <SideNavigation />
         <slot />
       </main>
     </div>
@@ -11,5 +12,8 @@
 </template>
 <style>
 .content {
+  display: grid;
+  grid-template-columns: minmax(16rem, 20rem) 1fr;
+  gap: var(--space-8);
 }
 </style>

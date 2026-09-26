@@ -2,7 +2,7 @@
 import { auth } from "~/middleware/auth";
 
 definePageMeta({
-  layout: "default",
+  layout: "side-navigation",
   middleware: auth,
 });
 
@@ -14,34 +14,26 @@ const { data: session } = useAuth();
 </script>
 
 <template>
-  <main class="page-shell">
-    <section class="account-welcome">
-      <h1>Guest area</h1>
-      <p v-if="session?.user">Welcome back, {{ session.user.name }}.</p>
-      <p v-else>Loading your session…</p>
-      <div class="account-actions">
-        <NuxtLink class="btn" to="/account/profile">Profile</NuxtLink>
-        <NuxtLink class="btn" to="/account/reservations">Reservations</NuxtLink>
-        <SignOutButton />
-      </div>
-    </section>
-  </main>
+  <section class="account-welcome">
+    <h1 class="account-welcome-title">Guest area</h1>
+    <p v-if="session?.user">Welcome back, {{ session.user.name }}.</p>
+    <p v-else>Loading your session…</p>
+  </section>
 </template>
 
 <style scoped>
-.page-shell {
-  display: flex;
-  justify-content: center;
-  padding: 4rem 1rem;
-}
 .account-welcome {
   width: min(100%, 48rem);
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   padding: 2rem;
-  border: 1px solid var(--border);
+  /* border: 1px solid var(--border); */
   border-radius: 1rem;
-  background: var(--surface);
+}
+.account-welcome-title {
+  margin: 0;
+  text-align: start;
 }
 .account-actions {
   display: flex;

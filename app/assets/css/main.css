@@ -104,6 +104,24 @@ body {
   overflow-y: visible;
   overflow-x: clip;
 }
+#__nuxt, .layout {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+}
+.layout{
+  max-width: var(--page-mw);
+  margin: 0 auto;
+  width: 100%;
+}
+.header, .container{
+  width: 100%;
+}
+
+
+ul {
+  list-style: none;
+}
 
 button,
 select,
@@ -256,4 +274,18 @@ label {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+
+
+
+.container {
+  flex: 1 1 0%;
+  padding: var(--space-8) var(--space-5);
+  display: grid;
+}
+.content {
+  max-width: var(--page-mw);
+  margin: 0 auto;
+  width: 100%;
 }
