@@ -2,7 +2,7 @@
 import { auth } from "~/middleware/auth";
 
 definePageMeta({
-  layout: "default",
+  layout: "side-navigation",
   middleware: auth,
 });
 

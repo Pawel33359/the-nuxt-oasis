@@ -2,7 +2,7 @@
 import { auth } from "~/middleware/auth";
 
 definePageMeta({
-  layout: "default",
+  layout: "side-navigation",
   middleware: auth,
 });
 
@@ -12,7 +12,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <main></main>
+  <div>
+    <h1>Your reservations</h1>
+    <ReservationList />
+  </div>
 </template>
 
 <style scoped></style>

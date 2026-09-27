@@ -15,15 +15,16 @@ const { data: session } = useAuth();
 
 <template>
   <section class="account-welcome">
-    <h1 class="account-welcome-title">Guest area</h1>
-    <p v-if="session?.user">Welcome back, {{ session.user.name }}.</p>
+    <h1 class="account-welcome-title" v-if="session?.user">
+      Welcome back, {{ session.user.name }}.
+    </h1>
     <p v-else>Loading your session…</p>
   </section>
 </template>
 
 <style scoped>
 .account-welcome {
-  width: min(100%, 48rem);
+  /* width: min(100%, 48rem); */
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
