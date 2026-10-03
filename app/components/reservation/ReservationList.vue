@@ -1,10 +1,15 @@
 <script setup lang="ts">
-const { data: bookings, status } = await useLazyFetch("/api/bookings", {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import type { Booking } from "../../../shared/types/booking";
+
+const { data: bookings, status } = await useLazyFetch<Booking[]>(
+  "/api/bookings",
+  {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
 
 console.log("bookings", bookings.value, status.value);
 </script>
@@ -17,11 +22,13 @@ console.log("bookings", bookings.value, status.value);
     <div v-else-if="status === 'error'" class="reservation-message --error">
       Error loading bookings
     </div>
-    <div v-else>
+    <div v-else class="reservation-list__container">
       <ul class="reservation-list" v-if="bookings && bookings.length > 0">
-        <li v-for="booking in bookings" :key="booking.id">
-          <ReservationCard :booking="booking" />
-        </li>
+        <ReservationCard
+          v-for="booking in bookings"
+          :key="booking.id"
+          :booking="booking"
+        />
       </ul>
       <div v-else class="reservation-message --no-results">
         No bookings found.
@@ -37,5 +44,21 @@ console.log("bookings", bookings.value, status.value);
 }
 .reservation-message {
   font-size: var(--text-lg);
+}
+
+.reservation-list__container {
+  width: 100%;
+  max-width: 800px;
+  padding: var(--space-4);
+}
+
+.reservation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 </style>

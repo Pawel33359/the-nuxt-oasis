@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Cabin } from "../../shared/types/cabin";
+import type { Cabin } from "../../../shared/types/cabin";
 
 const route = useRoute();
 const { data: cabins, pending } = await useFetch<Cabin[]>("/api/cabins");
@@ -34,14 +34,14 @@ const filteredCabins = computed(() => {
 
 <template>
   <div v-if="pending"><Spinner /></div>
-  <div v-if="filteredCabins?.length" class="cabin-list">
+  <ul v-if="filteredCabins?.length" class="cabin-list">
     <CabinCard
       v-for="(cabin, index) in filteredCabins"
       :key="cabin.id"
       :cabin="cabin"
       :index="index"
     />
-  </div>
+  </ul>
   <strong v-else>No cabins available right now.</strong>
 </template>
 

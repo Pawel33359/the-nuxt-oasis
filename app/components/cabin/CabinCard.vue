@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Cabin } from "../../shared/types/cabin";
+import type { Cabin } from "../../../shared/types/cabin";
 
 const props = defineProps<{ cabin: Cabin; index: number }>();
 
@@ -8,7 +8,7 @@ const { id, name, maxCapacity, regularPrice, discount, image } = props.cabin;
 </script>
 
 <template>
-  <div class="cabin-card">
+  <li class="cabin-card">
     <!-- <div className="flex-1 relative"> -->
     <NuxtImg
       :load="index > 1 ? 'lazy' : 'eager'"
@@ -49,7 +49,7 @@ const { id, name, maxCapacity, regularPrice, discount, image } = props.cabin;
       </NuxtLink>
       <!-- </div> -->
     </div>
-  </div>
+  </li>
 </template>
 
 <style scoped>
@@ -57,6 +57,8 @@ const { id, name, maxCapacity, regularPrice, discount, image } = props.cabin;
   display: grid;
   grid-template-columns: minmax(auto, clamp(100px, 15vw, 250px)) 1fr;
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
   /* gap: var(--space-4); */
 }
 .cabin-card__content {

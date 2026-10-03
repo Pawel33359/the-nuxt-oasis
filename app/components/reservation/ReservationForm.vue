@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Cabin } from "../../shared/types/cabin";
-import { useReservation } from "../composables/useReservation";
+import type { Cabin } from "../../../shared/types/cabin";
+import { useReservation } from "../../composables/useReservation";
 
 const { cabin, user } = defineProps<{
   cabin: Cabin;

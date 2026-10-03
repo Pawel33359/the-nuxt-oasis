@@ -88,6 +88,7 @@ const isActive = (paramValue: string) => {
 .filters-group {
   border: 1px solid var(--border);
   display: flex;
+  border-radius: var(--radius-md);
 }
 .filters-single {
   padding: var(--space-4) var(--space-6);

@@ -3,15 +3,15 @@
   <div class="layout">
     <Header />
     <div class="container">
-      <main class="content">
+      <main class="content --side-navigation">
         <SideNavigation />
         <slot />
       </main>
     </div>
   </div>
 </template>
-<style>
-.content {
+<style scoped>
+.content.--side-navigation {
   display: grid;
   grid-template-columns: minmax(16rem, 20rem) 1fr;
   gap: var(--space-8);

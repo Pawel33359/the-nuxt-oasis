@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css", "v-calendar/dist/es/style.css"],
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  components: [{ path: "~/components", pathPrefix: false }],
   modules: [
     "@nuxt/image",
     "@nuxtjs/google-fonts",

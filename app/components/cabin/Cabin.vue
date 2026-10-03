@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Cabin } from "../../shared/types/cabin";
+import type { Cabin } from "../../../shared/types/cabin";
 
 const { cabin } = defineProps<{
   cabin: Cabin;
@@ -60,6 +60,7 @@ const { cabin } = defineProps<{
   border: 1px solid var(--border);
   padding: var(--space-4) var(--space-8);
   margin-top: var(--space-16);
+  border-radius: var(--radius-md);
 }
 .cabin__info {
   display: flex;
