@@ -3,6 +3,7 @@
     <Head />
 
     <Body>
+      <Toaster position="top-right" rich-colors />
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>

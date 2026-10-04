@@ -2,7 +2,10 @@
 import type { Booking } from "../../../shared/types/booking";
 import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
 
+const { $toast } = useNuxtApp();
+
 const { booking } = defineProps<{ booking: Booking }>();
+const deleted = ref(false);
 
 const {
   id,
@@ -28,10 +31,29 @@ const formatDistanceFromNow = (dateValue: Date | string) => {
 const fromNowName = isToday(new Date(startDate))
   ? "Today"
   : formatDistanceFromNow(startDate);
+
+async function handleDelete() {
+  deleted.value = true;
+
+  try {
+    const response = await fetch(`/api/bookings/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete booking");
+    }
+    $toast.success("Booking deleted successfully");
+  } catch (error) {
+    deleted.value = false;
+    $toast.error("Failed to delete booking");
+    console.error(error);
+  }
+}
 </script>
 
 <template>
-  <li class="reservation-card">
+  <li v-if="!deleted" class="reservation-card">
     <div class="reservation-card__image-container">
       <NuxtImg
         :src="cabins.image"
@@ -84,7 +106,7 @@ const fromNowName = isToday(new Date(startDate))
     <div class="reservation-card__actions">
       <template v-if="!isPast(new Date(startDate))">
         <button class="btn"><Icon name="heroicons:pencil" /> Edit</button>
-        <button class="btn --danger">
+        <button class="btn --danger" :onclick="handleDelete">
           <Icon name="heroicons:trash" /> Delete
         </button>
       </template>

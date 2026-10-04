@@ -12,6 +12,7 @@ const { cabin, user } = defineProps<{
 
 const { maxCapacity } = cabin;
 const { selectedRange, resetRange } = useReservation();
+const { $toast } = useNuxtApp();
 
 const emit = defineEmits<{
   success: [];
@@ -20,8 +21,22 @@ const emit = defineEmits<{
 const numGuests = ref("");
 const observations = ref("");
 const isSubmitting = ref(false);
-const errorMessage = ref("");
-const successMessage = ref("");
+
+function getReservationErrorMessage(error: unknown) {
+  if (typeof error === "object" && error !== null && "data" in error) {
+    const data = error.data;
+    if (
+      typeof data === "object" &&
+      data !== null &&
+      "statusMessage" in data &&
+      typeof data.statusMessage === "string"
+    ) {
+      return data.statusMessage;
+    }
+  }
+
+  return "The reservation could not be created.";
+}
 
 function formatDate(date: Date) {
   const year = date.getFullYear();
@@ -32,11 +47,8 @@ function formatDate(date: Date) {
 }
 
 async function submitReservation() {
-  errorMessage.value = "";
-  successMessage.value = "";
-
   if (!selectedRange.value) {
-    errorMessage.value = "Please select your dates first.";
+    $toast.error("Please select your dates first.");
     return;
   }
 
@@ -53,14 +65,13 @@ async function submitReservation() {
       },
     });
 
-    successMessage.value = "Your reservation has been created.";
+    $toast.success("Your reservation has been created.");
     numGuests.value = "";
     observations.value = "";
     resetRange();
     emit("success");
-  } catch (error: any) {
-    errorMessage.value =
-      error?.data?.statusMessage || "The reservation could not be created.";
+  } catch (error: unknown) {
+    $toast.error(getReservationErrorMessage(error));
   } finally {
     isSubmitting.value = false;
   }
@@ -116,20 +127,6 @@ async function submitReservation() {
         >
           {{ isSubmitting ? "Reserving..." : "Reserve now" }}
         </button>
-        <p
-          v-if="errorMessage"
-          class="reservation-form__message reservation-form__error"
-          role="alert"
-        >
-          {{ errorMessage }}
-        </p>
-        <p
-          v-else-if="successMessage"
-          class="reservation-form__message reservation-form__success"
-          role="status"
-        >
-          {{ successMessage }}
-        </p>
       </div>
     </form>
   </div>
@@ -185,18 +182,4 @@ textarea {
   font-size: var(--text-xl);
 }
 
-.reservation-form__message {
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid currentColor;
-}
-
-.reservation-form__error {
-  color: var(--text);
-  background-color: var(--error);
-}
-
-.reservation-form__success {
-  color: var(--text);
-  background-color: var(--success);
-}
 </style>

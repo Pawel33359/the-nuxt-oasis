@@ -10,8 +10,6 @@ const { data: bookings, status } = await useLazyFetch<Booking[]>(
     },
   }
 );
-
-console.log("bookings", bookings.value, status.value);
 </script>
 
 <template>

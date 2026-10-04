@@ -17,7 +17,8 @@
     "nuxt": "^4.4.8",
     "v-calendar": "^3.1.2",
     "vue": "^3.5.38",
-    "vue-router": "^5.1.0"
+    "vue-router": "^5.1.0",
+    "vue-sonner": "^2.0.9"
   },
   "devDependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",

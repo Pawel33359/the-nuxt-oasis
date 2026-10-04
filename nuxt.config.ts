@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@nuxt/icon",
     "@sidebase/nuxt-auth",
+    "vue-sonner/nuxt",
   ],
   auth: {
     baseURL: "http://localhost:3000/api/auth",
