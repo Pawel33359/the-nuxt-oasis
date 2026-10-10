@@ -50,6 +50,8 @@ async function handleDelete() {
     console.error(error);
   }
 }
+
+const editLink = `/account/reservations/edit/${id}`;
 </script>
 
 <template>
@@ -105,7 +107,9 @@ async function handleDelete() {
     </div>
     <div class="reservation-card__actions">
       <template v-if="!isPast(new Date(startDate))">
-        <button class="btn"><Icon name="heroicons:pencil" /> Edit</button>
+        <NuxtLink class="btn reservation-card__edit-btn" :to="editLink">
+          <Icon name="heroicons:pencil" /> Edit
+        </NuxtLink>
         <button class="btn --danger" :onclick="handleDelete">
           <Icon name="heroicons:trash" /> Delete
         </button>
@@ -212,5 +216,12 @@ async function handleDelete() {
 }
 .reservation-card__info-booked {
   margin-left: auto;
+}
+
+.reservation-card__edit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
 }
 </style>

@@ -47,6 +47,10 @@ const navLinks = [
   border-right: 1px solid var(--border);
   justify-content: space-between;
   height: 100%;
+
+  max-height: min(100vh, 500px);
+  position: sticky;
+  top: 5rem;
 }
 .side-nav__link {
   display: flex;
