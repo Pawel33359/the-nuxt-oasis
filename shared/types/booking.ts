@@ -8,6 +8,7 @@ export interface Booking {
   totalPrice: number;
   cabinId: number;
   guestId: number;
+  observations: string;
   cabins: {
     name: string;
     image: string;

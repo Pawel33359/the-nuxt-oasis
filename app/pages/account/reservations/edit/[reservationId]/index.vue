@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Cabin } from "../../../../../../shared/types/cabin";
+
 definePageMeta({
   layout: "side-navigation",
 });
@@ -18,19 +20,22 @@ const {
 
 console.log(reservation.value);
 
-// const {
-//   data: cabin,
-//   pending,
-//   error,
-// } = await useFetch(() => `/api/cabins/${cabinId.value}`, {
-//   watch: [cabinId],
-// });
+const { data: cabin } = await useFetch<Cabin>(
+  () => `/api/cabins/${reservation.value.cabinId}`,
+  {
+    watch: [reservation.value.cabinId],
+  }
+);
 </script>
 
 <template>
   <div>
     <h1>Edit Reservation #{{ reservationId }}</h1>
-    <!-- <Reservation :cabin="cabin" /> -->
+    <Reservation
+      v-if="cabin && reservation"
+      :cabin="cabin"
+      :reservation="reservation"
+    />
   </div>
 </template>
 

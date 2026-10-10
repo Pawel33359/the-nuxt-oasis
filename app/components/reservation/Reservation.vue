@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Cabin } from "../../../shared/types/cabin";
+import type { Booking } from "../../../shared/types/booking";
 
-const { cabin } = defineProps<{
+const { cabin, reservation: booking } = defineProps<{
   cabin: Cabin;
+  reservation: Booking | null;
 }>();
 
 const { data: session } = useAuth();
-
 const { data: reservationData, refresh: refreshReservationData } =
   await useFetch<{
     settings: {
@@ -28,6 +29,7 @@ const { data: reservationData, refresh: refreshReservationData } =
         :settings="reservationData?.settings"
         :cabin="cabin"
         :booked-dates="reservationData?.bookedDates"
+        :booking="booking"
       />
       <ReservationPrice
         :cabin="cabin"
@@ -38,6 +40,7 @@ const { data: reservationData, refresh: refreshReservationData } =
       <ReservationForm
         :cabin="cabin"
         :user="session?.user ?? null"
+        :booking="booking"
         @success="refreshReservationData"
       />
     </div>

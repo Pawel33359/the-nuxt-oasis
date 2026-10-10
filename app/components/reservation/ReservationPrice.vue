@@ -27,8 +27,6 @@ const calculatedDays = computed(() => {
 
   return diffDays;
 });
-
-console.log(cabin);
 </script>
 
 <template>

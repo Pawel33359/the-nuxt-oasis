@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Booking } from "../../shared/types/booking";
 import { DatePicker as VCalendarDatePicker } from "v-calendar";
 import { useReservation } from "../composables/useReservation";
 
@@ -15,6 +16,7 @@ const props = withDefaults(
   defineProps<{
     settings?: BookingSettings | null;
     bookedDates?: string[];
+    booking?: Booking | null;
   }>(),
   {
     settings: null,
@@ -22,7 +24,14 @@ const props = withDefaults(
   }
 );
 
-const { selectedRange, setRange } = useReservation();
+const { selectedRange, setRange } = useReservation(
+  props.booking
+    ? {
+        start: new Date(props.booking.startDate),
+        end: new Date(props.booking.endDate),
+      }
+    : null
+);
 
 const date = computed({
   get: () => selectedRange.value,

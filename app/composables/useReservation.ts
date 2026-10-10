@@ -1,9 +1,11 @@
 import type { DatePickerRangeObject } from "../../shared/types/datePickerRange";
 
-export function useReservation() {
+export function useReservation(
+  initialRange: DatePickerRangeObject | null = null
+) {
   const selectedRange = useState(
     "reservation-selected-range",
-    () => null as DatePickerRangeObject | null
+    () => initialRange as DatePickerRangeObject | null
   );
 
   function setRange(range: DatePickerRangeObject | null) {

@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import type { Cabin } from "../../../shared/types/cabin";
+import type { Booking } from "../../../shared/types/booking";
 import { useReservation } from "../../composables/useReservation";
 
-const { cabin, user } = defineProps<{
+const { cabin, user, booking } = defineProps<{
   cabin: Cabin;
   user: {
     name?: string | null;
     image?: string | null;
   } | null;
+  booking: Booking | null;
 }>();
 
+const isEditing = computed(() => (booking ? true : false));
 const { maxCapacity } = cabin;
 const { selectedRange, resetRange } = useReservation();
 const { $toast } = useNuxtApp();
@@ -18,8 +21,8 @@ const emit = defineEmits<{
   success: [];
 }>();
 
-const numGuests = ref("");
-const observations = ref("");
+const numGuests = ref(booking?.numGuests || "");
+const observations = ref(booking?.observations || "");
 const isSubmitting = ref(false);
 
 function getReservationErrorMessage(error: unknown) {
@@ -55,8 +58,13 @@ async function submitReservation() {
   isSubmitting.value = true;
 
   try {
-    await $fetch(`/api/cabins/${cabin.id}/reservation`, {
-      method: "POST",
+    const apiPath = isEditing
+      ? `/api/bookings/${booking?.id}`
+      : `/api/cabins/${cabin.id}/reservation`;
+    const apiMethod = isEditing ? "PATCH" : "POST";
+
+    await $fetch(apiPath, {
+      method: apiMethod,
       body: {
         startDate: formatDate(selectedRange.value.start),
         endDate: formatDate(selectedRange.value.end),
@@ -76,6 +84,11 @@ async function submitReservation() {
     isSubmitting.value = false;
   }
 }
+
+const reservationBtnLiterals = {
+  default: isEditing ? "Edit now" : "Reserve now",
+  loading: isEditing ? "Editing..." : "Reserving",
+};
 </script>
 
 <template>
@@ -120,12 +133,16 @@ async function submitReservation() {
       <div class="reservation-form__form-group --reserve">
         <p>Start by selecting dates</p>
         <button
-          class="btn"
+          class="btn reservation-form__submit-btn"
           type="submit"
           :disabled="isSubmitting"
           v-if="selectedRange?.start && selectedRange?.end"
         >
-          {{ isSubmitting ? "Reserving..." : "Reserve now" }}
+          {{
+            isSubmitting
+              ? reservationBtnLiterals.loading
+              : reservationBtnLiterals.default
+          }}
         </button>
       </div>
     </form>
@@ -182,4 +199,8 @@ textarea {
   font-size: var(--text-xl);
 }
 
+.reservation-form__submit-btn[disabled] {
+  background: var(--bg-soft);
+  opacity: 0.5;
+}
 </style>
