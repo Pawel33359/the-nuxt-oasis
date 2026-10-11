@@ -20,6 +20,22 @@ const { data: reservationData, refresh: refreshReservationData } =
     };
     bookedDates: string[];
   }>(() => `/api/cabins/${cabin.id}/reservation`);
+
+console.log(reservationData?.value?.bookedDates, booking);
+
+// WYKLUCZENIE DAT ZAJĘTYCH PRZEZ EDYTOWANA KABINE
+const bookedDates = computed(() =>
+  booking
+    ? reservationData.value?.bookedDates?.filter((date) => {
+        const startTime = new Date(booking.startDate).getTime();
+        const endTime = new Date(booking.endDate).getTime();
+        const currTime = new Date(date).getTime();
+
+        if (currTime < startTime || currTime > endTime) return true;
+        else return false;
+      })
+    : reservationData?.value?.bookedDates
+);
 </script>
 
 <template>
@@ -28,7 +44,7 @@ const { data: reservationData, refresh: refreshReservationData } =
       <DatePicker
         :settings="reservationData?.settings"
         :cabin="cabin"
-        :booked-dates="reservationData?.bookedDates"
+        :booked-dates="bookedDates"
         :booking="booking"
       />
       <ReservationPrice
