@@ -3,13 +3,14 @@ import type { Cabin } from "../../../shared/types/cabin";
 import type { Booking } from "../../../shared/types/booking";
 import { useReservation } from "../../composables/useReservation";
 
-const { cabin, user, booking } = defineProps<{
+const { cabin, user, booking, onSuccessCallback } = defineProps<{
   cabin: Cabin;
   user: {
     name?: string | null;
     image?: string | null;
   } | null;
   booking: Booking | null;
+  onSuccessCallback: Function | null;
 }>();
 
 const isEditing = computed(() => (booking ? true : false));
@@ -73,10 +74,18 @@ async function submitReservation() {
       },
     });
 
-    $toast.success("Your reservation has been created.");
-    numGuests.value = "";
-    observations.value = "";
-    resetRange();
+    $toast.success(
+      isEditing
+        ? "Your reservation has been changed"
+        : "Your reservation has been created."
+    );
+    if (!isEditing) {
+      numGuests.value = "";
+      observations.value = "";
+      resetRange();
+    } else if (onSuccessCallback) {
+      onSuccessCallback();
+    }
     emit("success");
   } catch (error: unknown) {
     $toast.error(getReservationErrorMessage(error));

@@ -16,15 +16,14 @@ const {
   data: reservation,
   pending: resPending,
   error: resError,
+  refresh: refreshReservation,
 } = await useFetch(() => `/api/bookings/${reservationId.value}`);
 
-console.log(reservation.value);
+const cabinId = computed(() => reservation.value?.cabinId);
 
 const { data: cabin } = await useFetch<Cabin>(
-  () => `/api/cabins/${reservation.value.cabinId}`,
-  {
-    watch: [reservation.value.cabinId],
-  }
+  () => `/api/cabins/${cabinId.value}`,
+  { watch: [cabinId] }
 );
 </script>
 
@@ -35,6 +34,7 @@ const { data: cabin } = await useFetch<Cabin>(
       v-if="cabin && reservation"
       :cabin="cabin"
       :reservation="reservation"
+      :onSuccessCallback="refreshReservation"
     />
   </div>
 </template>

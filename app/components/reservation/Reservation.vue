@@ -2,9 +2,14 @@
 import type { Cabin } from "../../../shared/types/cabin";
 import type { Booking } from "../../../shared/types/booking";
 
-const { cabin, reservation: booking } = defineProps<{
+const {
+  cabin,
+  reservation: booking,
+  onSuccessCallback,
+} = defineProps<{
   cabin: Cabin;
   reservation: Booking | null;
+  onSuccessCallback: Function | null;
 }>();
 
 const { data: session } = useAuth();
@@ -21,8 +26,6 @@ const { data: reservationData, refresh: refreshReservationData } =
     bookedDates: string[];
   }>(() => `/api/cabins/${cabin.id}/reservation`);
 
-console.log(reservationData?.value?.bookedDates, booking);
-
 // WYKLUCZENIE DAT ZAJĘTYCH PRZEZ EDYTOWANA KABINE
 const bookedDates = computed(() =>
   booking
@@ -36,6 +39,8 @@ const bookedDates = computed(() =>
       })
     : reservationData?.value?.bookedDates
 );
+
+console.log(reservationData.value, booking);
 </script>
 
 <template>
@@ -57,6 +62,7 @@ const bookedDates = computed(() =>
         :cabin="cabin"
         :user="session?.user ?? null"
         :booking="booking"
+        :onSuccessCallback="onSuccessCallback"
         @success="refreshReservationData"
       />
     </div>
