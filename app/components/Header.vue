@@ -29,13 +29,16 @@ const route = useRoute();
   bottom: 0;
   transform: translateX(-50%);
 }
-.header.--main {
-  opacity: 0.2;
-  transform: translateY(-50%);
-  animation: header-show forwards var(--animation-md);
-}
-.header.--main::after {
-  content: none !important;
+
+@media (min-width: 979px) {
+  .header.--main {
+    opacity: 0.2;
+    transform: translateY(-50%);
+    animation: header-show forwards var(--animation-md);
+  }
+  .header.--main::after {
+    content: none !important;
+  }
 }
 .header__container {
   display: flex;

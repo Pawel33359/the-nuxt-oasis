@@ -98,6 +98,12 @@ html {
   font-size: 62.5%; /*1rem === 10px*/
   /* scrollbar-gutter: stable; */
 }
+@media (max-width: 978px) {
+  html {
+    font-size: 50%;
+  }
+}
+
 body {
   margin: 0;
   font-family: "Josefin Sans", "Inter", "Segoe UI", Roboto, Arial, sans-serif;

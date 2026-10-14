@@ -65,4 +65,10 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 756px) {
+  .home__title {
+    font-size: var(--text-6xl);
+  }
+}
 </style>
