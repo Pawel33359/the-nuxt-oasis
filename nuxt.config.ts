@@ -12,9 +12,8 @@ export default defineNuxtConfig({
     "vue-sonner/nuxt",
   ],
   auth: {
-    baseURL: import.meta.dev
-      ? "http://localhost:3000/api/auth"
-      : "https://the-nuxt-oasis.vercel.app/api/auth",
+    originEnvKey: "AUTH_ORIGIN",
+    baseURL: "/api/auth",
     provider: {
       type: "authjs",
       defaultProvider: "google",
