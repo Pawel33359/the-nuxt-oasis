@@ -55,13 +55,15 @@ const { cabin } = defineProps<{
 <style scoped>
 .cabin__content {
   display: grid;
-  grid-template-columns: 3fr 4fr;
-  gap: var(--space-16);
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
   border: 1px solid var(--border);
   padding: var(--space-4) var(--space-8);
   margin-top: var(--space-16);
   border-radius: var(--radius-md);
+  overflow: hidden;
 }
+
 .cabin__info {
   display: flex;
   flex-direction: column;
@@ -70,17 +72,16 @@ const { cabin } = defineProps<{
 }
 .cabin__img-wrapper {
   position: relative;
+  min-height: 150px;
 }
 .cabin__img {
-  scale: 1.15;
-  width: 100%;
+  width: calc(100% + (2 * var(--space-8)));
+  left: calc(-1 * var(--space-8));
+  top: calc(-1 * var(--space-4));
   height: 100%;
   object-fit: cover;
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transform-origin: top center;
+  max-width: none;
 }
 .cabin__description {
   padding-bottom: var(--space-4);
@@ -89,7 +90,6 @@ const { cabin } = defineProps<{
 .cabin__title {
   position: relative;
   z-index: 1;
-  margin-left: calc(-1 * min(50%, 200px));
   background: var(--bg);
   padding: var(--space-2) var(--space-4);
   text-align: start;
@@ -105,5 +105,25 @@ const { cabin } = defineProps<{
 }
 .cabin__features-item {
   font-size: var(--text-xl);
+}
+
+@media (min-width: 757px) {
+  .cabin__content {
+    grid-template-columns: 3fr 4fr;
+    gap: var(--space-16);
+  }
+  .cabin__title {
+    margin-left: calc(-1 * min(50%, 200px));
+  }
+  .cabin__img {
+    width: 100%;
+    transform-origin: top center;
+    position: absolute;
+    scale: 1.15;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: var(--radius-md);
+  }
 }
 </style>

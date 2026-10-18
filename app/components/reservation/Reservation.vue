@@ -75,7 +75,7 @@ console.log(reservationData.value, booking);
 <style scoped>
 .reservation {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   border: 1px solid var(--border);
   background: var(--bg-soft);
 }
@@ -86,5 +86,10 @@ console.log(reservationData.value, booking);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+@media (min-width: 979px) {
+  .reservation {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>

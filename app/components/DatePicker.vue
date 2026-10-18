@@ -116,4 +116,10 @@ function onDayClick(_: any, event: MouseEvent): void {
   --vc-accent-800: #065f46;
   --vc-accent-900: #064e3b;
 }
+
+@media (max-width: 756px) {
+  .vc-pane-layout {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

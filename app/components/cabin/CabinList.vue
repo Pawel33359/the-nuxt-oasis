@@ -49,8 +49,14 @@ const filteredCabins = computed(() => {
 .cabin-list {
   padding-top: var(--space-8);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-4);
   /* overflow: hidden; */
+}
+
+@media (min-width: 757px) {
+  .cabin-list {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>
