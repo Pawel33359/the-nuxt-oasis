@@ -126,7 +126,7 @@ watch(
   .mobile-nav-btn {
     display: none;
   }
-  .header__nav_link[data-active="mobile"] {
+  .header__nav_link[data-show="mobile"] {
     display: none;
   }
 }
@@ -157,7 +157,7 @@ watch(
     align-self: end;
     justify-self: end;
   }
-  .header__nav_link[data-active="desktop"] {
+  .header__nav_link[data-show="desktop"] {
     display: none;
   }
 }
