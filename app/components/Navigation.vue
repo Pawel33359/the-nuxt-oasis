@@ -50,7 +50,10 @@ watch(
   <button class="mobile-nav-btn" data-action="open" @click="openMobileNav">
     <Icon name="heroicons:bars-3-20-solid" size="36" />
   </button>
-  <nav :class="`header__nav ${mobileNavOpen ? `--mobile-open` : ``}`">
+  <nav
+    :class="`header__nav ${mobileNavOpen ? `--mobile-open` : ``}`"
+    id="top-menu"
+  >
     <button class="mobile-nav-btn" data-action="close" @click="closeMobileNav">
       <Icon name="heroicons:x-mark-20-solid" size="36" />
     </button>
@@ -80,6 +83,8 @@ watch(
         </NuxtLink>
       </li>
     </ul>
+
+    <div id="aside-menu-target"></div>
   </nav>
 </template>
 
@@ -158,6 +163,12 @@ watch(
     justify-self: end;
   }
   .header__nav_link[data-show="desktop"] {
+    display: none;
+  }
+}
+
+@media (min-width: 757px) {
+  #aside-menu-target {
     display: none;
   }
 }

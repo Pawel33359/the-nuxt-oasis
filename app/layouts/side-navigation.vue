@@ -13,7 +13,13 @@
 <style scoped>
 .content.--side-navigation {
   display: grid;
-  grid-template-columns: minmax(16rem, 20rem) 1fr;
-  gap: var(--space-8);
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+@media (min-width: 757px) {
+  .content.--side-navigation {
+    grid-template-columns: minmax(16rem, 20rem) 1fr;
+    gap: var(--space-8);
+  }
 }
 </style>
