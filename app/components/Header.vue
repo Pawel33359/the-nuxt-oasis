@@ -1,9 +1,34 @@
 <script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from "vue";
+
 const route = useRoute();
+
+const headerRef = ref<HTMLElement | null>(null);
+let observer: ResizeObserver | undefined;
+
+onMounted(() => {
+  if (!headerRef.value) return;
+
+  const updateHeight = () => {
+    document.documentElement.style.setProperty(
+      "--header-height",
+      `${headerRef?.value?.offsetHeight ?? 0}px`
+    );
+  };
+
+  observer = new ResizeObserver(updateHeight);
+  observer.observe(headerRef?.value);
+  updateHeight();
+});
+
+onBeforeUnmount(() => observer?.disconnect());
 </script>
 
 <template>
-  <header :class="`header ${route.name === 'index' ? '--main' : ''}`">
+  <header
+    :class="`header ${route.name === 'index' ? '--main' : ''}`"
+    ref="headerRef"
+  >
     <div class="header__container">
       <Logo />
       <Navigation />
@@ -12,10 +37,15 @@ const route = useRoute();
 </template>
 <style scoped>
 .header {
-  position: relative;
+  /* position: relative; */
   padding: var(--space-5) var(--space-8);
   max-width: var(--page-mw);
   margin: 0 auto;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
 }
 .header::after {
   content: "";
@@ -29,7 +59,9 @@ const route = useRoute();
   bottom: 0;
   transform: translateX(-50%);
 }
-
+header.--main {
+  background: transparent;
+}
 @media (min-width: 979px) {
   .header.--main {
     opacity: 0.2;

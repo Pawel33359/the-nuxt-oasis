@@ -108,10 +108,10 @@ const editLink = `/account/reservations/edit/${id}`;
     <div class="reservation-card__actions">
       <template v-if="!isPast(new Date(startDate))">
         <NuxtLink class="btn reservation-card__edit-btn" :to="editLink">
-          <Icon name="heroicons:pencil" /> Edit
+          <Icon name="heroicons:pencil" size="20" /> Edit
         </NuxtLink>
         <button class="btn --danger" :onclick="handleDelete">
-          <Icon name="heroicons:trash" /> Delete
+          <Icon name="heroicons:trash" size="20" /> Delete
         </button>
       </template>
     </div>
@@ -124,8 +124,8 @@ const editLink = `/account/reservations/edit/${id}`;
   /* align-items: center; */
   border: 1px solid var(--border);
   display: grid;
-  grid-template-columns: 120px 1fr minmax(auto, 100px);
-  gap: var(--space-4);
+  grid-template-columns: 120px 1fr;
+  column-gap: var(--space-4);
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -154,7 +154,10 @@ const editLink = `/account/reservations/edit/${id}`;
   overflow: hidden;
 }
 .reservation-card__info {
-  padding: var(--space-4) 0;
+  padding: var(--space-4) var(--space-4) var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 .reservation-card__info--top {
   display: flex;
@@ -201,16 +204,16 @@ const editLink = `/account/reservations/edit/${id}`;
 }
 
 .reservation-card__actions {
-  border-left: 1px solid var(--border);
   display: flex;
-  flex-direction: column;
   height: 100%;
+  grid-column: 1 / -1;
 }
 .reservation-card__actions .btn {
   border-radius: 0;
   flex-basis: 50%;
-  /* display: flex; */
-  /* align-items: center;
+  font-size: var(--text-2xl);
+  /* display: flex;
+  align-items: center;
   justify-content: center;
   gap: var(--space-2); */
 }
@@ -223,5 +226,22 @@ const editLink = `/account/reservations/edit/${id}`;
   justify-content: center;
   align-items: center;
   gap: var(--space-2);
+}
+
+@media (min-width: 757px) {
+  .reservation-card {
+    grid-template-columns: 120px 1fr minmax(auto, 100px);
+  }
+  .reservation-card__info {
+    padding-right: 0;
+  }
+  .reservation-card__actions {
+    grid-column: 3 / 4;
+    flex-direction: column;
+    border-left: 1px solid var(--border);
+  }
+  .reservation-card__actions .btn {
+    font-size: var(--text-base);
+  }
 }
 </style>
