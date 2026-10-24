@@ -119,7 +119,7 @@ function onDayClick(_: any, event: MouseEvent): void {
 
 @media (max-width: 756px) {
   .vc-pane-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 }
 </style>

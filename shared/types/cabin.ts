@@ -6,4 +6,6 @@ export interface Cabin {
   discount: number;
   image: string;
   description: string;
+  lat: number;
+  lng: number;
 }

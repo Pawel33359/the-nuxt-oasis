@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+//devicemotion/ mousehover
+</script>
 
 <template>
   <NuxtImg
