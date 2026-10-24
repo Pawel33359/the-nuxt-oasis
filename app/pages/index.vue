@@ -1,5 +1,31 @@
 <script setup lang="ts">
 //devicemotion/ mousehover
+const animationFinished = ref(false);
+
+function handleMouseOver(event: MouseEvent) {
+  const x = (event.clientX / window.innerWidth) * 2 - 1;
+  const y = 1 - (event.clientY / window.innerHeight) * 2;
+
+  document.body.style.setProperty("--mouse-x", x.toString());
+  document.body.style.setProperty("--mouse-y", y.toString());
+}
+function handleAnimationEnd(event: AnimationEvent) {
+  console.log(event);
+  if (event.animationName.startsWith("img-start-zoom")) {
+    console.log(1234);
+    animationFinished.value = true;
+  }
+}
+
+onMounted(() => {
+  document.body.addEventListener("mouseover", handleMouseOver);
+
+  // window.addEventListener("devicemotion" (e: Event)=>{})
+});
+
+onUnmounted(() => {
+  document.body.removeEventListener("mouseover", handleMouseOver);
+});
 </script>
 
 <template>
@@ -7,6 +33,7 @@
     src="/bg.png"
     alt="Mountains and forests with two cabins"
     class="hero__img"
+    :class="{ 'mouse-effect': animationFinished }"
     format="webp"
     width="3000"
     height="2000"
@@ -15,8 +42,10 @@
     loading="eager"
     fit="cover"
     placeholder
+    @mouseover="handleMouseOver"
+    @animationend="handleAnimationEnd"
   />
-  <div class="home">
+  <div class="home" @mouseover="handleMouseOver">
     <h1 class="home__title">Welcome to paradise.</h1>
     <NuxtLink class="btn --xl home__btn" to="/cabins">
       <span>Explore luxury cabins</span>
@@ -35,7 +64,11 @@
 }
 .home__title {
   color: var(--text);
-  font-size: var(--text-10xl);
+  font-size: clamp(
+    var(--text-6xl),
+    calc(5vw + var(--text-xl)),
+    var(--text-10xl)
+  );
   filter: drop-shadow(0 0 5px var(--bg));
 }
 .hero__img {
@@ -46,6 +79,14 @@
   width: 100vw;
   height: 100vh;
   animation: img-start-zoom forwards var(--animation-lg);
+}
+.hero__img.mouse-effect {
+  transition: transform var(--animation-sm) ease-out;
+  transform: translate(
+      calc(var(--mouse-x, 0) * -30px),
+      calc(var(--mouse-y, 0) * 30px)
+    )
+    scale(calc(1 + max(abs(var(--mouse-x, 0)), abs(var(--mouse-y, 0))) * 0.2)) !important;
 }
 .home__btn {
   overflow: hidden;
@@ -65,12 +106,6 @@
   to {
     scale: 1;
     opacity: 1;
-  }
-}
-
-@media (max-width: 756px) {
-  .home__title {
-    font-size: var(--text-6xl);
   }
 }
 </style>
