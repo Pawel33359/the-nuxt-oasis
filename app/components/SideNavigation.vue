@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
 
+const route = useRoute();
 const navLinks = [
   {
     name: "Home",
@@ -20,13 +21,19 @@ const navLinks = [
 ];
 
 const isMobile = useMediaQuery("(max-width: 756px)");
-console.log(isMobile.value);
+console.log(route.name);
 </script>
 
 <template>
   <aside>
     <nav class="side-nav" id="aside-menu">
-      <Teleport :to="isMobile ? '#aside-menu-target' : '#aside-menu'">
+      <Teleport
+        :to="
+          isMobile && route.name !== 'account'
+            ? '#aside-menu-target'
+            : '#aside-menu'
+        "
+      >
         <ul class="side-nav__list">
           <li v-for="link in navLinks" :key="link.name">
             <NuxtLink
@@ -46,6 +53,9 @@ console.log(isMobile.value);
 </template>
 
 <style scoped>
+aside {
+  grid-row: 2 / 3;
+}
 .side-nav {
   display: flex;
   flex-direction: column;
@@ -89,6 +99,9 @@ console.log(isMobile.value);
 }
 
 @media (min-width: 757px) {
+  aside {
+    grid-row: 1 / 2;
+  }
   .side-nav__list {
     border-top: none;
     gap: 0;
