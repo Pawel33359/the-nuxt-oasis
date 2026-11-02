@@ -9,8 +9,8 @@ const { cabin, user, booking, onSuccessCallback } = defineProps<{
     name?: string | null;
     image?: string | null;
   } | null;
-  booking: Booking | null;
-  onSuccessCallback: Function | null;
+  booking: Booking | undefined;
+  onSuccessCallback: Function | undefined;
 }>();
 
 const isEditing = computed(() => (booking ? true : false));

@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@sidebase/nuxt-auth",
     "vue-sonner/nuxt",
+    "@nuxtjs/leaflet",
   ],
   auth: {
     originEnvKey: "AUTH_ORIGIN",

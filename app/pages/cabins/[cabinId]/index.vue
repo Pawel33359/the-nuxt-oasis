@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Cabin } from "../../../../shared/types/cabin";
+
 definePageMeta({
   layout: "default",
 });
@@ -10,7 +12,7 @@ const {
   data: cabin,
   pending,
   error,
-} = await useFetch(() => `/api/cabins/${cabinId.value}`, {
+} = await useFetch<Cabin>(() => `/api/cabins/${cabinId.value}`, {
   watch: [cabinId],
 });
 
@@ -20,7 +22,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="cabin">
+  <div class="cabin" v-if="cabin">
     <Cabin :cabin="cabin" />
     <div class="cabin__reserve">
       <h2>Reserve {{ cabin.name }} today. Pay on arrival.</h2>

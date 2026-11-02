@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import GlobalModal from "./components/modal/GlobalModal.vue";
+</script>
+
 <template>
   <Html lang="en">
     <Head />
@@ -7,6 +11,7 @@
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
+      <GlobalModal />
     </Body>
   </Html>
 </template>

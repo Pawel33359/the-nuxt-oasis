@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import type { Cabin } from "../../../shared/types/cabin";
+import MapModal from "../modal/MapModal.vue";
 
 const { cabin } = defineProps<{
   cabin: Cabin;
 }>();
+
+const { openModal } = useModal();
+function handleOpenModal() {
+  openModal(MapModal);
+}
 </script>
 
 <template>
@@ -37,11 +43,10 @@ const { cabin } = defineProps<{
           </span>
         </li>
         <li class="cabin__features-item">
-          <Icon name="heroicons:map-pin-20-solid" />
-          <span>
-            Located in the heart of the
-            <strong> Dolomites</strong> (Italy)
-          </span>
+          <button class="cabin__map" @click="handleOpenModal">
+            <Icon name="heroicons:map-pin-20-solid" />
+            <span> Located in the heart of the Poland </span>
+          </button>
         </li>
         <li class="cabin__features-item">
           <Icon name="heroicons:eye-slash-20-solid" />
@@ -53,6 +58,15 @@ const { cabin } = defineProps<{
 </template>
 
 <style scoped>
+.cabin__map {
+  color: var(--primary);
+  text-decoration: underline;
+  transition: color var(--animation-sm);
+}
+.cabin__map:hover {
+  color: var(--primary-dark);
+}
+
 .cabin__content {
   display: grid;
   grid-template-columns: 1fr;

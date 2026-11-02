@@ -8,8 +8,8 @@ const {
   onSuccessCallback,
 } = defineProps<{
   cabin: Cabin;
-  reservation: Booking | null;
-  onSuccessCallback: Function | null;
+  reservation?: Booking | undefined;
+  onSuccessCallback?: Function | undefined;
 }>();
 
 const { data: session } = useAuth();
@@ -39,8 +39,6 @@ const bookedDates = computed(() =>
       })
     : reservationData?.value?.bookedDates
 );
-
-console.log(reservationData.value, booking);
 </script>
 
 <template>
