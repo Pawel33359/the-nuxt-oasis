@@ -7,7 +7,7 @@ export const useModal = () => {
   } | null>("modal", () => null);
 
   const openModal = (component: Component, props = {}) => {
-    modal.value = { component, props };
+    modal.value = { component: markRaw(component), props };
   };
 
   const closeModal = () => {

@@ -6,8 +6,6 @@ const dialog = ref<HTMLDialogElement | null>(null);
 watch(
   modal,
   (value) => {
-    console.log("Modal state:", value);
-    console.log("Dialog element:", dialog.value);
     if (value && !dialog.value?.open) {
       dialog.value?.showModal();
     } else if (!value && dialog.value?.open) {
@@ -68,11 +66,15 @@ function handleBackdropClick(event: MouseEvent) {
   display: flex;
   transition: all var(--animation-sm);
   padding: 0.4rem;
+  z-index: 2;
+  background: #fff;
 }
 .modal_close:hover {
   background: var(--bg-light);
 }
 .modal_content {
   padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
 }
 </style>

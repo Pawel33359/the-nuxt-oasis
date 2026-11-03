@@ -8,7 +8,7 @@ const { cabin } = defineProps<{
 
 const { openModal } = useModal();
 function handleOpenModal() {
-  openModal(MapModal);
+  openModal(MapModal, { lat: cabin.lat, lng: cabin.lng });
 }
 </script>
 
