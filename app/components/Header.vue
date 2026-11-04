@@ -66,7 +66,7 @@ header.--main {
   .header.--main {
     opacity: 0.2;
     transform: translateY(-50%);
-    animation: header-show forwards var(--animation-md);
+    animation: header-show forwards var(--transition-md);
   }
   .header.--main::after {
     content: none !important;

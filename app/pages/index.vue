@@ -9,10 +9,19 @@ function handleMouseOver(event: MouseEvent) {
   document.body.style.setProperty("--mouse-x", x.toString());
   document.body.style.setProperty("--mouse-y", y.toString());
 }
+function handleDeviceOrientation(event: DeviceOrientationEvent) {
+  if (event.gamma == null || event.beta == null) return;
+
+  const x = Math.max(-1, Math.min(1, event.gamma / 45));
+  const y = Math.max(-1, Math.min(1, event.beta / 45));
+
+  document.body.style.setProperty("--mouse-x", x.toString());
+  document.body.style.setProperty("--mouse-y", y.toString());
+}
+
 function handleAnimationEnd(event: AnimationEvent) {
   console.log(event);
   if (event.animationName.startsWith("img-start-zoom")) {
-    console.log(1234);
     animationFinished.value = true;
   }
 }
@@ -20,7 +29,7 @@ function handleAnimationEnd(event: AnimationEvent) {
 onMounted(() => {
   document.body.addEventListener("mouseover", handleMouseOver);
 
-  // window.addEventListener("devicemotion" (e: Event)=>{})
+  window.addEventListener("deviceorientation", handleDeviceOrientation);
 });
 
 onUnmounted(() => {
@@ -81,7 +90,7 @@ onUnmounted(() => {
   animation: img-start-zoom forwards var(--animation-lg);
 }
 .hero__img.mouse-effect {
-  transition: transform var(--animation-sm) ease-out;
+  transition: transform var(--transition-sm) ease-out;
   transform: translate(
       calc(var(--mouse-x, 0) * -30px),
       calc(var(--mouse-y, 0) * 30px)

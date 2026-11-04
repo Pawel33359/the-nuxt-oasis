@@ -61,7 +61,7 @@ function handleOpenModal() {
 .cabin__map {
   color: var(--primary);
   text-decoration: underline;
-  transition: color var(--animation-sm);
+  transition: color var(--transition-sm);
 }
 .cabin__map:hover {
   color: var(--primary-dark);

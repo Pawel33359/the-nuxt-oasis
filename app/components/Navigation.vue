@@ -143,7 +143,7 @@ watch(
     width: 100vw;
     height: 100vh;
     background: var(--bg);
-    transition: all var(--animation-sm);
+    transition: all var(--transition-sm);
     z-index: 100;
     left: 0;
     padding: 4rem;

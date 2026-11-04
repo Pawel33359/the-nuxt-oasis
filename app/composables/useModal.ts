@@ -1,5 +1,8 @@
 import type { Component } from "vue";
 
+/*
+Add option for timer to help close the animation
+*/
 export const useModal = () => {
   const modal = useState<{
     component: Component;

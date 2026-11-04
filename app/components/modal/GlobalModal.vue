@@ -35,6 +35,7 @@ function handleBackdropClick(event: MouseEvent) {
       class="modal"
       @close="handleClose"
       @click="handleBackdropClick"
+      v-if="modal?.component"
     >
       <button class="modal_close" @click="handleClose">
         <Icon name="heroicons:x-mark-20-solid" size="24" />
@@ -64,7 +65,7 @@ function handleBackdropClick(event: MouseEvent) {
   border-radius: 50%;
   aspect-ratio: 1/1;
   display: flex;
-  transition: all var(--animation-sm);
+  transition: all var(--transition-sm);
   padding: 0.4rem;
   z-index: 2;
   background: #fff;
@@ -77,4 +78,31 @@ function handleBackdropClick(event: MouseEvent) {
   position: relative;
   z-index: 1;
 }
+
+/* Disabled for now - doesnt work when modal dissapears */
+/* @supports (transition-behavior: allow-discrete) {
+  .modal {
+    --modal-transition-time: var(--transition-lg);
+
+    opacity: 0;
+    scale: 0.5;
+
+    transition: opacity var(--modal-transition-time),
+      scale var(--modal-transition-time),
+      display var(--modal-transition-time) allow-discrete;
+
+    transform-origin: center center;
+  }
+
+  .modal:open {
+    opacity: 1;
+    scale: 1;
+    display: block;
+
+    @starting-style {
+      opacity: 0;
+      scale: 0.5;
+    }
+  }
+} */
 </style>
